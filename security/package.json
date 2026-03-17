@@ -1,0 +1,14 @@
+{
+  "name": "office-claw-security",
+  "version": "0.1.0",
+  "main": "index.js",
+  "devDependencies": {
+    "@napi-rs/cli": "^2.18.4"
+  },
+  "napi": {
+    "binaryName": "office-claw-security",
+    "targets": [
+      "aarch64-apple-darwin"
+    ]
+  }
+}

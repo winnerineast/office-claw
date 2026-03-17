@@ -1,0 +1,19 @@
+# Rust artifacts
+target/
+**/*.rs.bk
+
+# Node.js artifacts
+node_modules/
+npm-debug.log
+.env
+
+# Docker artifacts
+.dockerignore
+
+# WASM artifacts
+**/dist/*.wasm
+**/target/*.wasm
+
+# OS files
+.DS_Store
+*.swp
