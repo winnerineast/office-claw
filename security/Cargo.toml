@@ -1,0 +1,46 @@
+[package]
+name = "office-claw-security"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi = { version = "2.12", features = ["async"] }
+napi-derive = "2.12"
+
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+futures = "0.3"
+async-trait = "0.1"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Error handling
+thiserror = "2"
+anyhow = "1"
+
+# Logging
+tracing = "0.1"
+
+# Filesystem paths
+dirs = "6"
+
+# WASM sandbox for untrusted tool execution
+wasmtime = { version = "28", features = ["component-model"] }
+wasmtime-wasi = "28"
+wasmparser = "0.220"
+
+# Networking & Utils
+reqwest = { version = "0.12", features = ["json", "blocking"] }
+url = "2"
+urlencoding = "2"
+chrono = { version = "0.4", features = ["serde"] }
+semver = "1"
+
+[dev-dependencies]
+tokio-test = "0.4"
+tempfile = "3"
