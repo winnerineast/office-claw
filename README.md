@@ -11,59 +11,58 @@ OfficeClaw is built upon the foundational work and architectural concepts of the
 - **[IronClaw](https://github.com/nearai/ironclaw)**: Inspirational Rust-based implementation specializing in high-performance and WASM sandboxing.
 - **[NanoClaw](https://github.com/qwibitai/nanoclaw)**: The benchmark for lightweight, OS-level container isolation.
 - **[NemoClaw](https://github.com/NVIDIA/NemoClaw)**: The standard for enterprise-grade privacy routing and policy governance.
-- **[ZeroClaw](https://github.com/winnerineast/openclaw)**: A benchmark for ultra-fast startup (<10ms) and minimal static binary footprint (~3.4MB).
-- **[PicoClaw](https://github.com/winnerineast/openclaw)**: The gold standard for low-memory efficiency (~1MB footprint) on edge hardware.
+- **[ZeroClaw](https://github.com/winnerineast/openclaw)**: A benchmark for ultra-fast startup (<10ms) and minimal static binary footprint.
+- **[PicoClaw](https://github.com/winnerineast/openclaw)**: The gold standard for low-memory efficiency (~1MB footprint).
 
 ---
 
 ## 🌟 Our Vision
-In an enterprise setting, AI agents must be more than just "smart." They must be **trustworthy and unobtrusive**. OfficeClaw is built to run on standard office hardware (from Mac minis to PC clusters) while ensuring that sensitive company data never leaves the local network without explicit, audited permission.
+In an enterprise setting, AI agents must be more than just "smart." They must be **trustworthy and unobtrusive**. OfficeClaw is built to run on standard office hardware while ensuring that sensitive company data never leaves the local network without explicit, audited permission.
 
 ---
 
 ## 🛡️ Three Core Pillars
 
 ### 1. 🚀 Lightweight (Inspired by ZeroClaw/PicoClaw)
-- **Small Footprint**: Optimized core with ~15k lines of code, reducing resource overhead by 95% compared to generic frameworks.
-- **Fast Cold Start**: Aiming for <100ms agent activation via specialized WASM component pre-loading and static linking techniques.
-- **Edge-Ready**: Optimized for standard office machines (8GB+ RAM) with minimal idle memory consumption.
+- **Small Footprint**: Optimized core with ~15k lines of code.
+- **Fast Cold Start**: Near-instant activation via WASM component pre-loading.
 
 ### 2. 🔐 Enterprise Security (Inspired by IronClaw/NanoClaw)
-- **Rust/WASM Sandbox**: Skills run in cryptographically isolated WebAssembly sandboxes with strict resource quotas.
-- **Container Isolation**: OS-level isolation for each user agent to prevent cross-role data leaks.
-- **Zero-Trust Auth**: Mandatory Token Authentication and DM Pairing, preventing "ClawJacked" style exploits.
+- **WASM Sandbox**: Cryptographically isolated execution for all Skills.
+- **Zero-Trust Auth**: Enforced Token Authentication to prevent exploits like "ClawJacked."
 
-### 3. 📊 Manageability (Inspired by NemoClaw)
-- **Centralized Control**: Unified dashboard for monitoring health, resource usage, and task success rates.
-- **Privacy Router**: Automatic PII scrubbing ensuring sensitive data stays local while only anonymized queries reach the cloud.
-- **Zero-Config Deployment**: Tailored for non-technical administrators with one-click installation.
+### 3. 📊 Fleet Management & Governance (Inspired by NemoClaw)
+- **Centralized Control Plane**: Remote deployment, updates, and monitoring of all office nodes.
+- **Billing & Quota Control**: Unified management of LLM costs and department-level budgets.
+- **Compliance Auditing**: Signed audit logs for every agent action to satisfy SOC2/GDPR.
 
 ---
 
 ## 🏗️ Bridge Architecture
 OfficeClaw acts as the "Bridge" between raw AI power and enterprise-specific constraints:
 
-- **Logic Layer**: Inherits the flexible logic from **OpenClaw**.
-- **Security Layer**: Integrated **IronClaw/ZeroClaw** runtime concepts for safe and fast execution.
+- **Logic Layer**: Inherits flexible logic from **OpenClaw**.
+- **Security Layer**: Integrated **IronClaw/ZeroClaw** concepts for safe and fast execution.
 - **Isolation Layer**: Integrated **NanoClaw** container concepts for multi-tenant privacy.
-- **Routing Layer**: Integrated **NemoClaw** privacy-aware task dispatching.
+- **Routing & Governance Layer**: Integrated **NemoClaw** and custom Fleet Management for privacy, model routing, and centralized control.
 
 ---
 
 ## 📂 Project Structure
 ```text
 office-claw/
-├── security/           # Rust-based WASM Security Bridge (IronClaw/ZeroClaw concepts)
-├── core/               # Enterprise Orchestrator (based on OpenClaw/Nanoclaw logic)
-├── routing/            # Privacy-first Task Router (NemoClaw)
+├── security/           # Rust-based WASM Security Bridge (IronClaw/ZeroClaw)
+├── core/               # Enterprise Orchestrator (based on OpenClaw/Nanoclaw)
+├── routing/            # Privacy & Model Router (NemoClaw)
 ├── isolation/          # Container Management Layer (NanoClaw)
+├── fleet/              # Fleet Management & Control Plane
 ├── dashboard/          # Management UI & Audit Logs
 └── scripts/            # Deployment & Maintenance Tools
 ```
 
 ---
 
-**Status**: `Active Development` | **Architecture**: `Bridge Architecture v1.1`
+**Status**: `Active Development` | **Architecture**: `Bridge Architecture v1.2`
 
 ---
 
@@ -73,5 +72,5 @@ office-claw/
 - **Cleaned Environment**: Reset local machine, removed old global packages.
 - **Source Sync**: Cloned `openclaw` and `office-claw` repositories.
 - **Vision Alignment**: Defined "Lightweight, Secure, Manageable" goals.
-- **Documentation**: Finalized multi-language README and Design Spec, integrating ZeroClaw/PicoClaw references for performance optimization.
+- **Architecture Update**: Added **Fleet Management & Governance** layer to all docs (README, README_CN, Design) to address centralized deployment, billing control, and compliance.
 - **Next Step**: Begin Phase 1 - Directory creation and Rust initialization.
