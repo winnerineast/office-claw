@@ -11,17 +11,17 @@ In an enterprise setting, AI agents must be more than just "smart." They must be
 
 ## 🛡️ Three Core Pillars
 
-### 1. 🚀 Lightweight (轻量级)
+### 1. 🚀 Lightweight
 - **Small Footprint**: Optimized to use 95% fewer resources than generic agent frameworks (~15k lines of core code).
 - **Edge-Ready**: Designed to run comfortably on standard office machines (8GB+ RAM) by offloading heavy inference to a local cluster or using quantized MLX models.
 - **Fast Cold Start**: Near-instant agent activation via specialized WASM component pre-loading.
 
-### 2. 🔐 Enterprise Security (安全)
+### 2. 🔐 Enterprise Security
 - **Rust/WASM Sandbox (IronClaw)**: Every third-party "Skill" runs in a cryptographically isolated WebAssembly sandbox with strict CPU/Memory quotas.
 - **Privacy Router (NemoClaw)**: Automatic PII (Personally Identifiable Information) scrubbing. Sensitive data like salaries or contracts are processed locally; only anonymized queries reach the cloud.
 - **Container Isolation (NanoClaw)**: Each user's agent is isolated at the OS level, ensuring zero cross-talk between different departments or roles.
 
-### 3. 📊 Manageability (可管理)
+### 3. 📊 Manageability
 - **Centralized Control**: A single dashboard to monitor agent health, resource usage, and task success rates across the entire office cluster.
 - **Audit Trails**: Every action taken by an agent is logged for compliance and security reviews.
 - **Zero-Config Deployment**: One-click installation and automated configuration tailored for non-technical office administrators.
@@ -77,37 +77,38 @@ Deploy to a single machine or a Mac Studio cluster with a single command:
 OfficeClaw is a downstream project of [OpenClaw](https://github.com/openclaw/openclaw). While OpenClaw focuses on personal versatility and broad channel support, OfficeClaw focuses on **Enterprise hardening, Local-First privacy, and Scalability.**
 
 ---
----
+
 **Status**: `Active Development` | **Architecture**: `Bridge Architecture v1.0`
 
 ---
 
-## 🗺️ Action Plan (行动计划)
+## 🗺️ Action Plan
 
-### Phase 1: Structure & Environment (基础搭建)
+### Phase 1: Structure & Environment
 - [ ] **Sync Directory Structure**: Create the core folders defined in the architecture (security, core, routing, isolation, dashboard, scripts).
 - [ ] **Initialize Rust Security Bridge**: Setup `security/` as a Rust NAPI-RS project for WASM runtime.
 - [ ] **Setup Build Chain**: Create `scripts/build-all.sh` to automate dependency installation and compilation across Node.js and Rust.
 
-### Phase 2: Core Logic Extraction (核心逻辑提取)
+### Phase 2: Core Logic Extraction
 - [ ] **Lean Orchestrator**: Extract the minimal agent orchestration logic from `OpenClaw` into `office-claw/core`.
 - [ ] **Privacy Router (NemoClaw)**: Implement the initial PII scrubbing logic for local/cloud routing.
 
-### Phase 3: Security & Isolation (安全与隔离)
+### Phase 3: Security & Isolation
 - [ ] **WASM Sandbox**: Implement resource limiting (CPU/Memory) in the Rust Security Bridge.
 - [ ] **Container Integration**: Develop the `isolation/` layer using Docker/OrbStack for multi-tenant isolation.
 
-### Phase 4: Management & Deployment (管理与部署)
+### Phase 4: Management & Deployment
 - [ ] **Dashboard MVP**: A basic CLI/Web dashboard for monitoring agent status.
 - [ ] **Cluster Deploy**: Finalize `scripts/deploy.sh` for Apple Silicon cluster distribution.
 
 ---
 
-## 📝 Work Daily (工作日记)
+## 📝 Work Daily
 
 ### 🗓️ 2026-03-22
 - **Cleaned Environment**: Stopped old `openclaw-gateway` and `ollama` services, removed global npm packages, and backed up `~/.openclaw`.
 - **Source Sync**: Cloned `openclaw` and `office-claw` repositories from `winnerineast` directly to the home directory.
 - **Project Refinement**: Defined the core vision of OfficeClaw (Lightweight, Secure, Manageable).
 - **README Overhaul**: Completely rewrote the project documentation to align with the "Bridge Architecture" and established the action plan.
+- **Multi-language Support**: Split documentation into `README.md` (English) and `README_CN.md` (Chinese).
 - **Next Step**: Start **Phase 1** - Syncing the directory structure and initializing the Rust security project.
