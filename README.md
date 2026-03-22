@@ -46,3 +46,15 @@ OfficeClaw is built upon the foundational work and architectural concepts of the
 
 ---
 **Status**: `Active Development` | **Architecture**: `Bridge Architecture v1.3`
+
+---
+
+## 📝 Work Daily
+
+### 🗓️ 2026-03-22
+- **Foundation Reset**: Cleaned environment and established the "Prompt-First" and "Always-Runnable" mandates.
+- **Architecture Refinement**: Finalized v1.3 Roadmap, including the "Ecosystem Absorption" ultimate goal.
+- **Stage 1 Complete**: Locked **Milestone M1** (Quality Gate) with automated GitHub Issue reporting and budget enforcers.
+- **Stage 2 Deep-Dive**: Refined the Onion Core design to be protocol-driven (ACP compliant) and observable (Instrumented Pipeline).
+- **Handoff**: Stage 2 is ready for Step-by-Step implementation (starting with protocol definitions).
+

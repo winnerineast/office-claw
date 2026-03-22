@@ -8,10 +8,10 @@ Stage 1 has established a robust **Hexagonal Quality Gate**. The system can now 
 ---
 
 ## 📋 Checklist for Human Review
-- [ ] **Infrastructure**: `npm test` runs cleanly and reports memory usage.
-- [ ] **Closure**: GitHub Issue #1 and #2 have been manually reviewed/closed by Human.
-- [ ] **Audit**: `INTENT_AUDIT.md` has been read and no hallucinations were found.
-- [ ] **Stability**: The environment is ready for Stage 2 (Onion Core).
+- [x] **Infrastructure**: `npm test` runs cleanly and reports memory usage.
+- [x] **Closure**: GitHub Issue #1 and #2 have been manually reviewed/closed by Human.
+- [x] **Audit**: `governance/audits/M1_IntentAudit.md` has been read and no hallucinations were found.
+- [x] **Stability**: The environment is ready for Stage 2 (Onion Core).
 
 ---
 

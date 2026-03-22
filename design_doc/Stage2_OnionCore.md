@@ -2,56 +2,50 @@
 
 /* Generated-by: [20260322-05-stage2-design-deep-dive] */
 
-## 🎯 Goal
-Implement a lightweight, asynchronous **ACP Gateway** and the **Onion Middleware Pipeline**. This core manages the reversible PII vault, the WASM lifecycle, and the non-blocking fleet governance.
+## 🎯 Goal: Protocol-Compliant & Observable Core
+Implement a lightweight **ACP Gateway** and an **Instrumented Onion Pipeline**. This core must be 100% compatible with `@agentclientprotocol/sdk` and support **Block Streaming** with explicit auditability.
 
 ---
 
-## 🏗️ Architectural Components
+## 🏗️ Architectural Refinement
 
-### 1. Reversible PII Scrubber (NemoClaw Integration)
-- **Mechanism**: Bidirectional mapping via a session-bound memory vault.
-- **Placeholder**: `OC_REDACTED_[TYPE][ID]` (e.g., `OC_REDACTED_E1`).
-- **Restoration**: Occurs only at the **Security Layer (IronClaw)** boundary or the **Egress** boundary. The Reasoning layer remains "PII-Blind".
+### 1. Protocol Foundation (ACP Compliance)
+We use the standardized Agent Client Protocol (ACP) for all external communications.
+- **Message Framing**: NDJSON (Newline Delimited JSON).
+- **Core Events**: `text_delta` (Streaming), `tool_call`, `status`.
+- **Session Mapping**: Map ACP `sessionId` to internal `IsolationContext`.
 
-### 2. WASM Sandbox Lifecycle (IronClaw Integration)
-1. **Verify**: Signature and provenance check.
-2. **Setup**: Inject capability-based WASI imports.
-3. **Run**: Enforce CPU fuel and memory quotas.
-4. **Scrub**: Zero-out memory buffers upon termination.
-5. **Report**: Emit execution metrics to the Audit Bus.
+### 2. Instrumented Onion Pipeline
+The executor is no longer a "black box" but a fully observable engine.
+- **Explicit Context**: Holds `PromptRequest`, `SecureVault`, and a `Telemetry` object.
+- **Middleware Hooks**:
+  1. `Ingress`: Parse NDJSON.
+  2. `Governance`: mTLS & Quota check (Mocked).
+  3. `Privacy`: Reversible PII Redaction (Vault-backed).
+  4. `Reasoning`: Orchestration loop.
+  5. `Security`: WASM Execution (Mocked).
+  6. `Egress`: PII Restoration & NDJSON framing.
+- **Observability**: High-resolution timing for each layer and built-in error boundaries.
 
-### 3. Non-Blocking Fleet Governance
-- **Optimistic Auth**: Use "Last Known Good" (LKG) policy for immediate ACP response.
-- **Async Sync**: Pull fleet updates in the background to prevent network-induced deadlocks.
-- **Offline Fallback**: If Fleet is unreachable, restrict tools to local-only mode.
+### 3. Reversible PII Vault (Session-Bound)
+- **Mapping**: `OC_REDACTED_[TYPE][ID]` (e.g., `OC_REDACTED_E1` for Email).
+- **Security**: The vault is ephemeral and bound to the session lifecycle.
 
 ---
 
-## 🛠️ Internal Primitives
-
-```typescript
-/* Generated-by: [20260322-05-stage2-design-deep-dive] */
-
-export interface ISecureVault {
-  redact(input: string): string;
-  restore(redacted: string): string;
-  clear(): void;
-}
-
-export interface ISandboxHandle {
-  id: string;
-  state: 'ready' | 'running' | 'cleaning';
-  resourceUsage: { cpu: number; mem: number };
-}
-```
+## 🛠️ Implementation Roadmap (Step-by-Step)
+1. **Step 1**: Protocol Interfaces (`protocol.ts`) & Context Primitives.
+2. **Step 2**: Reversible Vault implementation with multi-type PII support.
+3. **Step 3**: Instrumented `OnionExecutor` with timing and error handling.
+4. **Step 4**: ACP Streaming Gateway with NDJSON routing.
+5. **Step 5**: Full Integration Test using `scripts/test-and-report.sh`.
 
 ---
 
 ## ✅ Stage 2 Validation (V&V)
-- **Vault Integrity**: Assert that `restore(redact(text)) === text` while `text` never enters the LLM context.
-- **Lifecycle Probe**: Force a WASM instance to hang and verify the core kills it and scrubs memory within 500ms.
-- **Latency Test**: Assert `initialize` response time < 100ms even if Fleet Mock is set to high latency (2s).
+- **Streaming Integrity**: Verify `text_delta` events flow through the pipeline.
+- **Audit Accuracy**: Assert that `IPipelineResult` timing sums match total execution time.
+- **Protocol Strictness**: Validate output frames against the ACP JSON Schema.
 
 ---
-**Status**: `Deep-Dive Design Finalized with HITL and Safety Guards`
+**Status**: `Refined Design Locked - Ready for Implementation Tomorrow`
