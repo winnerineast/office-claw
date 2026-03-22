@@ -1,74 +1,53 @@
 # 🏗️ OfficeClaw Design Specification (v1.2)
 
+/* Generated-by: [20260322-01-project-init] */
+
 This document integrates insights from the **2026 OpenClaw Ecosystem Research Report** and enterprise management requirements. It serves as the definitive guide for building a lightweight, secure, and enterprise-ready agent infrastructure.
 
 ---
 
 ## 1. Vision & Core Philosophy
 OfficeClaw is **not** a fork that diverges; it is a **hardened downstream distribution**.
-- **95% Smaller Footprint**: By stripping personal-use experimental features and focusing on core OA (Office Automation) logic.
-- **Hardware-Level Security**: Moving from JS-based "logic checks" to Rust/WASM-based "physical isolation."
-- **Privacy First**: Integrating real-time PII scrubbing into the communication stream.
+- **95% Smaller Footprint**: Focused core (~15k lines).
+- **Hardware-Level Security**: Rust/WASM-based physical isolation.
+- **Privacy First**: Real-time PII scrubbing.
 - **Fleet Governance**: Centralized control for enterprise-wide deployment and compliance.
+- **Prompt-First Engineering**: Every line of code is born from a version-tracked prompt.
 
 ---
 
 ## 2. Architectural Inheritance (OpenClaw Compatibility)
-To ensure seamless integration with the existing OpenClaw ecosystem (Clawhub, Skills, Channels), OfficeClaw adheres to these standards:
-
-### 2.1 Agent Client Protocol (ACP)
-- **Status**: Mandatory.
-- **Role**: OfficeClaw's `core/` will implement the ACP gateway, allowing any OpenClaw-compatible client (Mobile, Desktop, CLI) to connect without modification.
-
-### 2.2 Plugin SDK & Runtime
-- **Strategy**: Re-implement or wrapper the `plugin-sdk/*` modules.
-- **Mechanism**: Skills expecting `AgentTool` (via `@mariozechner/pi-agent-core`) will find an identical interface in OfficeClaw, but the underlying execution will be proxied to the **IronClaw WASM Bridge**.
-
-### 2.3 Configuration Standard
-- **Format**: `openclaw.json` (JSON5).
-- **Extension**: OfficeClaw respects all standard OpenClaw keys but adds an `office` namespace for enterprise-specific settings (e.g., `office.pii_redaction: true`, `office.fleet_id: "finance-dept"`).
+- **ACP Standard**: Mandatory implementation of Agent Client Protocol.
+- **Plugin SDK**: Supports `@mariozechner/pi-agent-core` interfaces.
+- **Configuration**: JSON5 `openclaw.json` with an extended `office` namespace.
 
 ---
 
 ## 3. The Bridge Architecture Layers
-
 ### 3.1 Logic Layer (The Core)
-- **Focus**: Minimal reasoning loop and task dispatching based on **OpenClaw/Nanoclaw**.
-- **Constraint**: No direct access to host resources. All must go through the Security Layer.
-
+- Minimal reasoning loop and task dispatching.
 ### 3.2 Security Layer (IronClaw - Rust/WASM)
-- **Role**: The "Gatekeeper."
-- **Execution**: Every Skill runs in a **WASM Component** environment.
-- **Limits**: Hard-coded CPU fuel and memory quotas (inspired by **ZeroClaw**).
-
+- WASM-based sandboxing with CPU/Memory fuel limits.
 ### 3.3 Isolation Layer (NanoClaw - Containers)
-- **Role**: Multi-tenant privacy.
-- **Implementation**: Each user session runs in a dedicated **MicroVM/Container**.
-
+- Per-user MicroVM/Container isolation.
 ### 3.4 Routing Layer (NemoClaw - Privacy Router)
-- **Role**: Intelligent, privacy-aware task dispatching.
-- **PII Scrubbing**: Real-index and NLP-based redaction before cloud routing.
-
+- Real-time PII scrubbing and intelligent model dispatching.
 ### 3.5 Governance Layer (Fleet Management)
-- **Role**: The "Enterprise Control Plane."
-- **Remote Orchestration**: Centralized deployment, OTA updates, and health monitoring of all OfficeClaw nodes.
-- **Billing Control**: Unified LLM API quota management and department-level budget tracking.
-- **Compliance**: Cryptographically signed audit logs for every agent action.
+- Centralized deployment, billing control, and encrypted audit logs.
 
 ---
 
-## 4. Implementation Strategy: "Core Peeling"
-Instead of building from scratch, we "peel" the heavy layers of OpenClaw:
-1.  **Extract**: Identify the minimal set of dependencies.
-2.  **Redirect**: Swap `node:fs` calls with **IronClaw Bridge** calls.
-3.  **Harden**: Replace the JS skill loader with the Rust-WASM loader.
+## 4. Coding Mandate: Prompt-First Strategy
+To maintain absolute architectural integrity, OfficeClaw follows a strict **Prompt-First** workflow:
+1. **Task-Based Prompts**: Prompts are stored in `prompts/tasks/`.
+2. **Atomic Commits**: Code and prompts must be committed together.
+3. **Prompt-Centric Debugging**: Fix bugs by enhancing the generating prompt, not by patching code manually.
 
 ---
 
 ## 5. Security & Compliance Mandates
-- **Zero-Trust Auth**: Mandatory Token Authentication (Post-ClawJacked fix).
-- **Auditability**: Every tool execution must generate a signed audit event.
-- **Data Sovereignty**: Local-first processing; PII never leaves the cluster.
+- **Zero-Trust Auth**: Enforced Token Authentication and DM Pairing.
+- **Auditability**: Cryptographically signed audit logs for every agent action.
 
 ---
 
