@@ -1,6 +1,6 @@
 # 🏢 OfficeClaw: 轻量级、安全、可管理的个人企业级 OA Agent
 
-/* Generated-by: [20260322-01-project-init] */
+/* Generated-by: [20260322-02-arch-deep-dive] */
 
 **中文版** | [English Version](README.md)
 
@@ -9,40 +9,33 @@
 ---
 
 ## 🛡️ 三大核心支柱
-1. **🚀 轻量级 (参考 ZeroClaw/PicoClaw)**：约 1.5 万行核心代码，资源占用减少 95%。
-2. **🔐 企业级安全 (参考 IronClaw/NanoClaw)**：基于 WASM 的沙箱执行与操作系统级容器隔离。
-3. **📊 集群治理 (参考 NemoClaw)**：远程部署、账单配额控制、合规审计。
+1. **🚀 轻量级 (参考 ZeroClaw/PicoClaw)**：约 1.5 万行核心代码，<10MB 待机内存。
+2. **🔐 企业级安全 (参考 IronClaw/NanoClaw)**：基于 WASM 的沙箱执行、OS 级容器隔离以及 **mTLS** 加密通信。
+3. **📊 集群治理 (参考 NemoClaw)**：**拉取式 (Pull-based)** 集中管控，实现远程部署、账单配额控制、合规审计。
 
 ---
 
-## 🏗️ 桥接架构 v1.2
+## 🏗️ 桥接架构 v1.2 (深化版)
 OfficeClaw 在原始 AI 能力与企业特定约束之间发挥“桥梁”作用：
-- **逻辑层**：继承自 **OpenClaw** 灵活的编排逻辑。
-- **安全层**：集成 **IronClaw/ZeroClaw** 的安全与极速执行理念。
-- **隔离层**：集成 **NanoClaw** 的容器化多租户隐私保护。
-- **治理层**：集成 **NemoClaw** 与自定义集群管理系统，实现集中管控。
-
----
-
-## 🛠️ 编码规范：提示词优先 (Prompt-First)
-OfficeClaw 的每一行代码都源自经过版本追踪的提示词。我们坚持“优先修复提示词，而非直接修改代码”的原则。
-- **任务型提示词**：保存在 `prompts/tasks/` 中。
-- **原子提交**：提示词文件与生成的代码必须在同一个 Git Commit 中提交。
+- **洋葱中间件流水线 (Onion Middleware Pipeline)**：ACP 消息流经 6 层处理（入站 -> 集群钩子 -> PII 脱敏 -> 推理 -> WASM 验证 -> 出站）。
+- **安全层**：集成 **IronClaw/ZeroClaw** 的高性能 FFI (NAPI-RS) 安全执行理念。
+- **隔离层**：集成 **NanoClaw** 的微虚拟机/容器化多租户隐私保护。
+- **治理层**：集成 **NemoClaw** 与自定义**拉取式集群管理系统**，实现远程编排与加密签名审计。
 
 ---
 
 ## 📂 项目结构
 ```text
 office-claw/
-├── security/           # 基于 Rust 的 WASM 安全桥
-├── core/               # 企业级编排器
-├── routing/            # 隐私与模型路由器
-├── isolation/          # 容器管理层
+├── security/           # 基于 Rust 的 WASM 安全桥 (IronClaw/ZeroClaw)
+├── core/               # 企业级编排器 (基于 OpenClaw 逻辑)
+├── routing/            # 隐私与模型路由器 (NemoClaw)
+├── isolation/          # 容器管理层 (NanoClaw)
 ├── fleet/              # 集群管理与控制平面
 ├── dashboard/          # 管理 UI 与审计日志
-├── prompts/tasks/      # 任务型生成提示词
+├── prompts/tasks/      # 任务型生成提示词 (提示词优先规范)
 └── scripts/            # 部署与维护工具
 ```
 
 ---
-**状态**: `活跃开发中` | **架构**: `桥接架构 v1.2`
+**状态**: `活跃开发中` | **架构**: `桥接架构 v1.2 (深化版)`

@@ -1,6 +1,6 @@
 # 🏢 OfficeClaw: The Lightweight, Secure, and Manageable Enterprise OA Agent
 
-/* Generated-by: [20260322-01-project-init] */
+/* Generated-by: [20260322-02-arch-deep-dive] */
 
 [中文版 (Chinese)](README_CN.md) | **English**
 
@@ -9,40 +9,33 @@
 ---
 
 ## 🛡️ Three Core Pillars
-1. **🚀 Lightweight (Inspired by ZeroClaw/PicoClaw)**: Optimized core with ~15k lines of code.
-2. **🔐 Enterprise Security (Inspired by IronClaw/NanoClaw)**: WASM-based sandboxing and OS-level container isolation.
-3. **📊 Fleet Governance (Inspired by NemoClaw)**: Centralized deployment, billing control, and compliance auditing.
+1. **🚀 Lightweight (Inspired by ZeroClaw/PicoClaw)**: Optimized core with ~15k lines of code and <10MB idle memory.
+2. **🔐 Enterprise Security (Inspired by IronClaw/NanoClaw)**: WASM-based sandboxing, OS-level container isolation, and **mTLS** authentication.
+3. **📊 Fleet Governance (Inspired by NemoClaw)**: **Pull-based** centralized management for deployment, billing control, and compliance auditing.
 
 ---
 
-## 🏗️ Bridge Architecture v1.2
+## 🏗️ Bridge Architecture v1.2 (Deep Dive)
 OfficeClaw acts as the "Bridge" between raw AI power and enterprise-specific constraints:
-- **Logic Layer**: Flexible logic from **OpenClaw**.
-- **Security Layer**: Integrated **IronClaw/ZeroClaw** concepts for safe and fast execution.
-- **Isolation Layer**: Integrated **NanoClaw** container concepts for multi-tenant privacy.
-- **Governance Layer**: Integrated **NemoClaw** and custom Fleet Management for privacy and control.
-
----
-
-## 🛠️ Coding Mandate: Prompt-First
-Every line of code in OfficeClaw is born from a version-tracked prompt. We prioritize fixing the **prompt** over patching the **code**.
-- **Task-Based Prompts**: Stored in `prompts/tasks/`.
-- **Atomic Commits**: Code and prompts are committed together in a single Git commit.
+- **Onion Middleware Pipeline**: A 6-step processing flow (Ingress -> Fleet Hook -> PII Scrub -> Reasoning -> WASM Verify -> Egress).
+- **Security Layer**: Integrated **IronClaw/ZeroClaw** concepts with high-performance FFI (NAPI-RS).
+- **Isolation Layer**: Integrated **NanoClaw** microVM/container concepts for per-user filesystem privacy.
+- **Governance Layer**: Integrated **NemoClaw** and custom **Pull-based Fleet Management** for remote orchestration and signed audit logs.
 
 ---
 
 ## 📂 Project Structure
 ```text
 office-claw/
-├── security/           # Rust-based WASM Security Bridge
-├── core/               # Enterprise Orchestrator
-├── routing/            # Privacy & Model Router
-├── isolation/          # Container Management Layer
+├── security/           # Rust-based WASM Security Bridge (IronClaw/ZeroClaw concepts)
+├── core/               # Enterprise Orchestrator (based on OpenClaw logic)
+├── routing/            # Privacy & Model Router (NemoClaw)
+├── isolation/          # Container Management Layer (NanoClaw)
 ├── fleet/              # Fleet Management & Control Plane
 ├── dashboard/          # Management UI & Audit Logs
-├── prompts/tasks/      # Mirror of task-based generating prompts
+├── prompts/tasks/      # Task-based generating prompts (Prompt-First mandate)
 └── scripts/            # Deployment & Maintenance Tools
 ```
 
 ---
-**Status**: `Active Development` | **Architecture**: `Bridge Architecture v1.2`
+**Status**: `Active Development` | **Architecture**: `Bridge Architecture v1.2 (Refined)`
