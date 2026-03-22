@@ -8,6 +8,19 @@
 
 ---
 
+## 📜 Credits & References
+OfficeClaw is built upon the foundational work and architectural concepts of the following pioneering projects:
+
+- **[OpenClaw](https://github.com/openclaw/openclaw)**: The core personal AI assistant framework.
+- **[IronClaw](https://github.com/nearai/ironclaw)**: Inspirational Rust-based implementation with WASM sandboxing.
+- **[NanoClaw](https://github.com/qwibitai/nanoclaw)**: The benchmark for lightweight, OS-level container isolation.
+- **[NemoClaw](https://github.com/NVIDIA/NemoClaw)**: The standard for enterprise-grade privacy routing.
+- **[ZeroClaw](https://github.com/winnerineast/openclaw)**: A benchmark for ultra-fast startup (<10ms).
+- **[PicoClaw](https://github.com/winnerineast/openclaw)**: The gold standard for low-memory efficiency (~1MB footprint).
+- **Variant References**: **Nanobot** (Python efficiency), **NullClaw** (Fast Rust binary), **Agno**, and **TinyClaw**.
+
+---
+
 ## 🛡️ Three Core Pillars
 1. **🚀 Lightweight**: <10MB idle memory, ~15k lines of optimized code.
 2. **🔐 Enterprise Security**: WASM-based sandboxing, OS-level container isolation, and **mTLS** authentication.

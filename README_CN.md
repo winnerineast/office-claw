@@ -8,6 +8,19 @@
 
 ---
 
+## 📜 鸣谢与参考 (Credits & References)
+OfficeClaw 的构建深受以下先驱项目的基础工作与架构启发：
+
+- **[OpenClaw](https://github.com/openclaw/openclaw)**：核心个人 AI 助手框架。
+- **[IronClaw](https://github.com/nearai/ironclaw)**：基于 Rust 的 WASM 沙箱执行参考。
+- **[NanoClaw](https://github.com/qwibitai/nanoclaw)**：轻量级操作系统级容器隔离标杆。
+- **[NemoClaw](https://github.com/NVIDIA/NemoClaw)**：企业级隐私路由标准。
+- **[ZeroClaw](https://github.com/winnerineast/openclaw)**：超快启动 (<10ms) 基准。
+- **[PicoClaw](https://github.com/winnerineast/openclaw)**：极低内存效率 (~1MB) 金标准。
+- **其他参考变体**：**Nanobot** (Python 效率), **NullClaw** (极速 Rust 二进制), **Agno**, 以及 **TinyClaw**。
+
+---
+
 ## 🛡️ 三大核心支柱
 1. **🚀 轻量级**：约 1.5 万行优化代码，<10MB 待机内存。
 2. **🔐 企业级安全**：基于 WASM 的沙箱执行、OS 级容器隔离以及 **mTLS** 加密。
