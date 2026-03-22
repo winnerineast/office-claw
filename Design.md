@@ -1,56 +1,55 @@
-# 🏗️ OfficeClaw Design Specification (v1.2 - Deep Dive)
+# 🏗️ OfficeClaw Design Specification (v1.3)
 
-/* Generated-by: [20260322-02-arch-deep-dive] */
+/* Generated-by: [20260322-03-arch-finalization] */
 
-This document defines the **Core Primitives**, **Integration Hooks**, and **Fleet Topology** for OfficeClaw. It prioritizes extreme minimalism, hardware-enforced security, and centralized enterprise governance.
-
----
-
-## 1. Architectural Synthesis (Variant Lessons)
-OfficeClaw's design is a synthesis of the most successful OpenClaw variants:
-- **ZeroClaw/PicoClaw Minimalism**: Use `node:http` and pure JS without heavy frameworks (Express/Nest) to maintain a <10MB idle memory footprint.
-- **NanoClaw Isolation**: The `core` assumes a "Hostile Environment" and relies on the **Isolation Layer** for filesystem boundaries.
-- **IronClaw FFI-First**: The `core` interacts with `security` (Rust) via high-performance FFI (NAPI-RS), not via shell spawning.
+This document defines the **Sequential Development Roadmap (v1.3)** and the **Closed-Loop Failure Tracking** mandate.
 
 ---
 
-## 2. Core Primitives & Integration (The Onion Model)
-All incoming messages through ACP follow a strictly defined **Onion Middleware Pipeline** to ensure security and privacy at every step.
+## 🗺️ Sequential Development Roadmap (v1.3)
+OfficeClaw follows a strict incremental development cycle to ensure it is always **Compilable, Runnable, and Testable.**
 
-### 2.1 The Middleware Pipeline
-1.  **Ingress**: Receive raw ACP payload.
-2.  **Hook: `onMessageReceived`**: Fleet-level filtering for global policy enforcement.
-3.  **Hook: `beforeLLM` (NemoClaw)**: Scrub PII (Emails, SSNs, Private Names) before cloud routing.
-4.  **Reasoning**: Core agent logic determines the next step (Response or Skill execution).
-5.  **Hook: `beforeSkill` (IronClaw)**: Verify the WASM component's signature and resource quota.
-6.  **Egress**: Return the encrypted, audited response to the channel.
+### Stage 1: Quality Gate (The Foundation)
+- **Goal**: Setup the automated test environment and Issue tracking infrastructure.
+- **Artifacts**: `core/tests/`, `scripts/test-and-report.sh`.
+- **Validation**: Successful GitHub Issue creation upon test failure.
 
-### 2.2 Interface Contracts (Dependency Injection)
-The `core` defines strict interfaces for external modules to prevent tight coupling:
-- **`ISecurityBridge`**: `async execute(wasmId, payload) -> Result`
-- **`IPrivacyRouter`**: `async redact(text) -> redactedText`
-- **`IIsolationProvider`**: `async spawnUserAgent(userId) -> containerId`
+### Stage 2: Onion Core (The Heart)
+- **Goal**: Implement ACP WebSocket Gateway and the 6-layer Middleware Pipeline.
+- **Artifacts**: `core/src/index.ts`, `core/src/pipeline/`.
+- **Validation**: Message flow through all hooks with Mock responses.
+
+### Stage 3: Security Bridge (The Shield)
+- **Goal**: Rust NAPI-RS initialization and WASM Runtime execution.
+- **Artifacts**: `security/src/lib.rs`, `security/wit/`.
+- **Validation**: Verified FFI call from Node to Rust executing WASM byte-code.
+
+### Stage 4: Isolation Layer (The Boundary)
+- **Goal**: Multi-tenant containerization via Docker/OrbStack.
+- **Artifacts**: `isolation/`, `scripts/docker-manager.sh`.
+- **Validation**: Per-user container spawning with isolated persistent volumes.
+
+### Stage 5: Privacy Router (NemoClaw)
+- **Goal**: Real-time PII scrubbing (Regex/NLP).
+- **Artifacts**: `routing/src/scrubber.ts`.
+- **Validation**: Redacted sensitive data in `beforeLLM` pipeline stage.
+
+### Stage 6: Fleet Governance (The Control Plane)
+- **Goal**: Pull-based mTLS heartbeat and centralized billing/audit.
+- **Artifacts**: `fleet/`, `dashboard/`.
+- **Validation**: Hot-reloading of policies pushed from the Fleet server.
+
+### Stage 7: Ecosystem Absorption (The Expansion)
+- **Goal**: Seamlessly ingest OpenClaw's ClawHub skills and 20+ messaging channels.
+- **Artifacts**: `core/src/adapters/clawhub/`.
+- **Validation**: Execution of legacy OpenClaw plugins within the OfficeClaw sandbox.
 
 ---
 
-## 3. Fleet Connectivity & Cluster Topology
-Enterprise deployment requires a **Pull-based Control Plane** to navigate firewalls and NATs.
-
-### 3.1 Pull-based Heartbeat
-- **Core-Initiated**: Every OfficeClaw node initiates a persistent connection to the central Fleet server upon boot.
-- **mTLS Auth**: All Core-to-Fleet communication is encrypted via mutual TLS with short-lived certificates.
-- **Hot-Reload Strategy**: Policies (e.g., "Disable Skill: Browser") and Billing Quotas (e.g., "$10 daily limit") are pushed from Fleet and hot-reloaded by Core without restart.
-
-### 3.2 Global Audit Bus
-- **Event-Driven**: All critical events (Skill calls, Model access, Auth failures) are emitted to a non-blocking `EventBus`.
-- **Signed Logs**: The Fleet module batches these events, cryptographically signs them locally, and pushes them to the central server for compliance (SOC2/GDPR).
-
----
-
-## 4. Implementation Constraints
-- **Zero-Config Deployment**: Initial setup must only require a single `FLEET_TOKEN`.
-- **Stateless Orchestrator**: The Node.js core remains stateless; all persistence is delegated to the **Isolation Layer** (MicroVM storage).
-- **Graceful Degradation**: If Fleet is unreachable, Core falls back to the "Last Known Good Policy" but restricts model access to local MLX only.
+## 🛠️ Operational Mandates
+- **Prompt-First**: All code born from prompts in `prompts/tasks/`.
+- **Atomic Commits**: Prompt and code committed together.
+- **Failure-Driven**: Test failures MUST trigger a GitHub Issue; fixes MUST reference the Issue ID.
 
 ---
 **Author**: OfficeClaw Architect (Gemini CLI)
