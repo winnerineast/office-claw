@@ -11,6 +11,8 @@ OfficeClaw is built upon the foundational work and architectural concepts of the
 - **[IronClaw](https://github.com/nearai/ironclaw)**: Inspirational Rust-based implementation specializing in high-performance and WASM sandboxing.
 - **[NanoClaw](https://github.com/qwibitai/nanoclaw)**: The benchmark for lightweight, OS-level container isolation.
 - **[NemoClaw](https://github.com/NVIDIA/NemoClaw)**: The standard for enterprise-grade privacy routing and policy governance.
+- **[ZeroClaw](https://github.com/winnerineast/openclaw)**: A benchmark for ultra-fast startup (<10ms) and minimal static binary footprint (~3.4MB).
+- **[PicoClaw](https://github.com/winnerineast/openclaw)**: The gold standard for low-memory efficiency (~1MB footprint) on edge hardware.
 
 ---
 
@@ -21,19 +23,19 @@ In an enterprise setting, AI agents must be more than just "smart." They must be
 
 ## 🛡️ Three Core Pillars
 
-### 1. 🚀 Lightweight
+### 1. 🚀 Lightweight (Inspired by ZeroClaw/PicoClaw)
 - **Small Footprint**: Optimized core with ~15k lines of code, reducing resource overhead by 95% compared to generic frameworks.
-- **Edge-Ready**: Runs on standard 8GB+ RAM office machines by leveraging quantized MLX models and local cluster offloading.
-- **Fast Cold Start**: Near-instant activation via specialized WASM component pre-loading.
+- **Fast Cold Start**: Aiming for <100ms agent activation via specialized WASM component pre-loading and static linking techniques.
+- **Edge-Ready**: Optimized for standard office machines (8GB+ RAM) with minimal idle memory consumption.
 
-### 2. 🔐 Enterprise Security
-- **Rust/WASM Sandbox (IronClaw-inspired)**: Skills run in cryptographically isolated WebAssembly sandboxes with strict resource quotas.
-- **Privacy Router (NemoClaw-inspired)**: Automatic PII scrubbing ensures sensitive data stays local while only anonymized queries reach the cloud.
-- **Container Isolation (NanoClaw-inspired)**: OS-level isolation for each user agent to prevent cross-role data leaks.
+### 2. 🔐 Enterprise Security (Inspired by IronClaw/NanoClaw)
+- **Rust/WASM Sandbox**: Skills run in cryptographically isolated WebAssembly sandboxes with strict resource quotas.
+- **Container Isolation**: OS-level isolation for each user agent to prevent cross-role data leaks.
+- **Zero-Trust Auth**: Mandatory Token Authentication and DM Pairing, preventing "ClawJacked" style exploits.
 
-### 3. 📊 Manageability
+### 3. 📊 Manageability (Inspired by NemoClaw)
 - **Centralized Control**: Unified dashboard for monitoring health, resource usage, and task success rates.
-- **Audit Trails**: Comprehensive logging of every agent action for compliance and security review.
+- **Privacy Router**: Automatic PII scrubbing ensuring sensitive data stays local while only anonymized queries reach the cloud.
 - **Zero-Config Deployment**: Tailored for non-technical administrators with one-click installation.
 
 ---
@@ -42,7 +44,7 @@ In an enterprise setting, AI agents must be more than just "smart." They must be
 OfficeClaw acts as the "Bridge" between raw AI power and enterprise-specific constraints:
 
 - **Logic Layer**: Inherits the flexible logic from **OpenClaw**.
-- **Security Layer**: Integrated **IronClaw** runtime concepts for safe tool execution.
+- **Security Layer**: Integrated **IronClaw/ZeroClaw** runtime concepts for safe and fast execution.
 - **Isolation Layer**: Integrated **NanoClaw** container concepts for multi-tenant privacy.
 - **Routing Layer**: Integrated **NemoClaw** privacy-aware task dispatching.
 
@@ -51,8 +53,8 @@ OfficeClaw acts as the "Bridge" between raw AI power and enterprise-specific con
 ## 📂 Project Structure
 ```text
 office-claw/
-├── security/           # Rust-based WASM Security Bridge (IronClaw)
-├── core/               # Enterprise Orchestrator (based on OpenClaw logic)
+├── security/           # Rust-based WASM Security Bridge (IronClaw/ZeroClaw concepts)
+├── core/               # Enterprise Orchestrator (based on OpenClaw/Nanoclaw logic)
 ├── routing/            # Privacy-first Task Router (NemoClaw)
 ├── isolation/          # Container Management Layer (NanoClaw)
 ├── dashboard/          # Management UI & Audit Logs
@@ -61,48 +63,7 @@ office-claw/
 
 ---
 
-## 🛠️ Development & Deployment Lifecycle
-
-### 1. Source-to-Binary Build
-Full transparency via source-based builds.
-```bash
-git clone https://github.com/winnerineast/office-claw
-cd office-claw
-./scripts/build-all.sh
-```
-
-### 2. Validation & Testing
-Mandatory "Office Stress Test" simulating 20+ concurrent OA tasks.
-
-### 3. Deployment
-```bash
-./scripts/deploy.sh --cluster
-```
-
----
-
-**Status**: `Active Development` | **Architecture**: `Bridge Architecture v1.0`
-
----
-
-## 🗺️ Action Plan
-
-### Phase 1: Structure & Environment
-- [ ] **Sync Directory Structure**: Create folders (security, core, routing, isolation, dashboard, scripts).
-- [ ] **Initialize Rust Security Bridge**: Setup `security/` as a Rust NAPI-RS project.
-- [ ] **Setup Build Chain**: Create `scripts/build-all.sh` for multi-runtime compilation.
-
-### Phase 2: Core Logic Extraction
-- [ ] **Lean Orchestrator**: Extract minimal logic from `OpenClaw` to `office-claw/core`.
-- [ ] **Privacy Router (NemoClaw)**: Implement initial PII scrubbing logic.
-
-### Phase 3: Security & Isolation
-- [ ] **WASM Sandbox**: Implement resource limiting in the Rust Bridge.
-- [ ] **Container Integration**: Develop the `isolation/` layer for multi-tenant support.
-
-### Phase 4: Management & Deployment
-- [ ] **Dashboard MVP**: Basic status monitoring UI.
-- [ ] **Cluster Deploy**: Finalize `scripts/deploy.sh`.
+**Status**: `Active Development` | **Architecture**: `Bridge Architecture v1.1`
 
 ---
 
@@ -112,5 +73,5 @@ Mandatory "Office Stress Test" simulating 20+ concurrent OA tasks.
 - **Cleaned Environment**: Reset local machine, removed old global packages.
 - **Source Sync**: Cloned `openclaw` and `office-claw` repositories.
 - **Vision Alignment**: Defined "Lightweight, Secure, Manageable" goals.
-- **Documentation**: Finalized multi-language README structure with full credit to the "Claw" family.
+- **Documentation**: Finalized multi-language README and Design Spec, integrating ZeroClaw/PicoClaw references for performance optimization.
 - **Next Step**: Begin Phase 1 - Directory creation and Rust initialization.
