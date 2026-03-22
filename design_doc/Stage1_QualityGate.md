@@ -1,37 +1,49 @@
-# 🏗️ OfficeClaw Design: Stage 1 - Quality Gate
+# 🏗️ OfficeClaw Design: Stage 1 - Quality Gate (Optimized Governance)
 
 /* Generated-by: [20260322-03-arch-finalization] */
 
-## 🎯 Goal
-Establish the automated test infrastructure and the **Closed-Loop Failure Tracking** mechanism. This ensures every future code change is validated against a rigorous quality standard.
+## 🎯 Goal: High-Speed Integrity
+Balance AI development speed with human accountability. Ensure the system is **Automated for Speed, Manual for Strategy.**
 
 ---
 
-## 🏗️ Components
+## 🏗️ The HEG Framework (Human-Enabled Governance)
 
-### 1. Test Framework
-- **Tool**: [Vitest](https://vitest.dev/)
-- **Reason**: Extremely fast, ESM-native, and compatible with the Node.js ecosystem used in `core/`.
-- **Location**: `core/tests/`
+### 1. The Automated Express (Auto-Pilot)
+- **Scope**: Internal sub-tasks and routine code generation.
+- **Rule**: If Hexagonal Tests (Node, Rust, Container, Budget, etc.) pass, AI proceeds to the next task and performs Atomic Commits autonomously.
+- **Feedback**: Minimalist "Change Digest" added to Task Logs for asynchronous review.
 
-### 2. Mocking Strategy
-- **Fixtures**: Standardized JSON/Text data located in `core/tests/fixtures/`.
-- **System Mocks**: Mocking of `Security`, `Privacy`, and `Isolation` interfaces to test the `core` logic in total isolation.
+### 2. The Exception Blocker (Human-in-the-Loop)
+- **Trigger**: Persistent test failure, Budget breach, or Security anomaly.
+- **Action**: AI generates a `FAIL_REPORT.md`, opens a GitHub Issue, and **pauses** execution.
+- **Human Role**: Adjudicate the failure (Ignore/Fix/Refactor) and manually sign-off on the resolution.
 
-### 3. Failure Reporting (The Issue Loop)
-- **Script**: `scripts/test-and-report.sh`
-- **Logic**:
-  1. Execute `vitest run`.
-  2. If tests fail, extract the failure message and the current Task ID.
-  3. Use GitHub CLI (`gh issue create`) to automatically open a tracking issue.
-  4. Block the build/deployment pipeline until the issue is resolved.
+### 3. The Milestone Gate (Immutable Checkpoint)
+- **Scope**: Transitions between the 7 Stages (e.g., Stage 1 -> Stage 2).
+- **Mandatory Review Pause**: A total freeze of the codebase for comprehensive architectural audit.
+- **Sign-off**: Requires a manual Git Tag (`checkpoint-m[n]`) and a signed `MILESTONE_SIGN_OFF.md`.
+
+---
+
+## 🛠️ Infrastructure (Stage 1 Deliverables)
+
+### 1. Hexagonal Test Suite
+- **Tools**: Vitest (Node), Cargo Test (Rust), Custom Shell (Container/Infra).
+- **Fast Assertions**: Memory (<10MB), LoC (<2k), mTLS validity.
+
+### 2. Automated Issue Loop
+- **`scripts/test-and-report.sh`**: The brain of the quality gate. It handles the "Fail -> Report -> Pause" logic.
+
+### 3. Change Digest Generator
+- **Utility**: Automatically summarizes "What changed, Why, and Resource impact" after each successful task.
 
 ---
 
 ## ✅ Validation Criteria
-- [ ] `npm test` runs and produces a report.
-- [ ] Forcing a test failure successfully triggers the creation of a GitHub Issue.
-- [ ] The build script correctly identifies the test status.
+- [ ] `scripts/test-and-report.sh` runs all tests in <5 seconds (to prevent developer friction).
+- [ ] Intentional failures are correctly caught and summarized in a High-Signal Digest.
+- [ ] Milestone M1 cannot be bypassed without a signed Git Tag.
 
 ---
-**Status**: `Ready for Implementation`
+**Status**: `Final Balanced Architecture Ready`
